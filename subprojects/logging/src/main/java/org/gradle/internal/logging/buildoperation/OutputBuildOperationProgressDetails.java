@@ -21,5 +21,5 @@ import org.gradle.internal.scan.UsedByScanPlugin;
 @UsedByScanPlugin
 public interface OutputBuildOperationProgressDetails {
     String getCategory();
-    String getLogLevel();
+    int getLogLevel();
 }

@@ -43,8 +43,8 @@ public final class OutputDetailsFactory {
                  * keep log level enum here?
                  * */
                 @Override
-                public String getLogLevel() {
-                    return logEvent.getLogLevel().name();
+                public int getLogLevel() {
+                    return logEvent.getLogLevel().ordinal();
                 }
 
                 @Override
