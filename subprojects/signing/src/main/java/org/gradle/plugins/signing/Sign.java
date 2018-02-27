@@ -218,6 +218,10 @@ public class Sign extends DefaultTask implements SignatureSpec {
             configuration.getAllArtifacts().whenObjectRemoved(new Action<PublishArtifact>() {
                 @Override
                 public void execute(final PublishArtifact publishArtifact) {
+                    if (publishArtifact instanceof Signature) {
+                        return;
+                    }
+
                     signatures.remove(Iterables.find(signatures, new Predicate<Signature>() {
                         @Override
                         public boolean apply(Signature input) {
