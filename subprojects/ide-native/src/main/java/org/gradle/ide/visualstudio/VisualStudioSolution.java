@@ -19,8 +19,14 @@ package org.gradle.ide.visualstudio;
 import org.gradle.api.Buildable;
 import org.gradle.api.Incubating;
 import org.gradle.api.Named;
+<<<<<<< HEAD
 import org.gradle.api.file.RegularFile;
 import org.gradle.api.provider.Provider;
+=======
+import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.TaskDependency;
+>>>>>>> 08d8e67c561... fixup
 import org.gradle.internal.HasInternalProtocol;
 import org.gradle.plugins.ide.IdeWorkspace;
 
@@ -51,6 +57,7 @@ public interface VisualStudioSolution extends Named, Buildable, IdeWorkspace {
     /**
      * Configuration for the generated solution file.
      */
+    @Internal
     TextConfigFile getSolutionFile();
 
     /**
@@ -58,4 +65,12 @@ public interface VisualStudioSolution extends Named, Buildable, IdeWorkspace {
      */
     @Override
     Provider<RegularFile> getLocation();
+
+    @Override
+    @Internal
+    TaskDependency getBuildDependencies();
+
+    @Override
+    @Input
+    String getName();
 }

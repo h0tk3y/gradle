@@ -23,6 +23,8 @@ import org.gradle.api.internal.tasks.DefaultTaskDependency;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.provider.ProviderFactory;
+import org.gradle.api.tasks.Internal;
+import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.TaskDependency;
 import org.gradle.ide.visualstudio.TextConfigFile;
 import org.gradle.ide.visualstudio.TextProvider;
@@ -73,18 +75,26 @@ public class DefaultVisualStudioSolution implements VisualStudioSolutionInternal
         return name;
     }
 
+    @Override
     public SolutionFile getSolutionFile() {
         return solutionFile;
     }
 
     @Override
+    @Internal
     public List<LocalComponentArtifactMetadata> getProjectArtifacts() {
         return ideArtifactRegistry.getIdeArtifactMetadata(VisualStudioProjectInternal.ARTIFACT_TYPE);
     }
 
     @Override
+    @Internal
     public List<LocalComponentArtifactMetadata> getProjectConfigurationArtifacts() {
         return ideArtifactRegistry.getIdeArtifactMetadata(VisualStudioProjectConfiguration.ARTIFACT_TYPE);
+    }
+
+    @Nested
+    public List<Action<? super TextProvider>> getSolutionFileActions() {
+        return solutionFile.getTextActions();
     }
 
     @Override
@@ -108,6 +118,7 @@ public class DefaultVisualStudioSolution implements VisualStudioSolutionInternal
             this.location = defaultLocation;
         }
 
+        @Internal
         public File getLocation() {
             return fileResolver.resolve(location);
         }
@@ -120,6 +131,7 @@ public class DefaultVisualStudioSolution implements VisualStudioSolutionInternal
             actions.add(action);
         }
 
+        @Nested
         public List<Action<? super TextProvider>> getTextActions() {
             return actions;
         }
